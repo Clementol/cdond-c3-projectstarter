@@ -1,14 +1,13 @@
 version: 2.1
 orbs:
-  # node: 'circleci/node:4.1'
   slack: circleci/slack@4.9.3
 commands:
-  notify_slack_pass:
+  notify_slack_fail:
     steps:
       - slack/notify:
           channel: alerts
-          event: pass
-          template: basic_success_1
+          event: fail
+          template: basic_fail_1
 jobs:
   build-frontend:
     docker:
@@ -84,8 +83,7 @@ jobs:
           command: |
             cd frontend
             npm install
-            npm audit fix --audit-level=critical
-      - notify_slack_pass
+            npm audit fix --audit-level=critical --force
   scan-backend:
     docker:
       - image: circleci/node:13.8.0
@@ -98,8 +96,8 @@ jobs:
           command: |
             cd backend
             npm install
-            npm audit fix --audit-level=critical
-      - notify_slack_pass
+            npm audit --audit-level=critical
+      - notify_slack_fail
 workflows:
   default:
     jobs:
@@ -114,4 +112,3 @@ workflows:
           context: Udapeople
       - scan-frontend:
           requires: [build-frontend]
-          context: Udapeople
