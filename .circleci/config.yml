@@ -181,10 +181,10 @@ jobs:
           command: |
             yum install -y tar gzip ansible
             pip install ansible
-            pip install awscli
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip awscliv2.zip
-            sudo ./aws/install
+            apt-get install -y awscli
+            # curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            # unzip awscliv2.zip
+            # sudo ./aws/install
       - run:
           name: Configure server
           command: |
