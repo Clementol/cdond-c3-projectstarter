@@ -1,0 +1,23 @@
+---
+- name: "update apt packages"
+  become: yes
+  apt:
+    update_cache: yes
+- name: "upgrade packages"
+  become: yes
+  apt:
+    upgrade: yes
+- name: "Install nodejs and npm"
+  become: yes
+  # shell:  |
+  #   curl --silent --location https://rpm.nodesource.com/setup_16.x | bash -
+  #   yum -y install nodejs
+  apt:
+    name: ["nodejs", "npm"]
+    update_cache: yes
+- name: "Install pm2"
+  become: yes
+  apt:
+    name: ["pm2"]
+    global: yes
+    production: yes
