@@ -178,8 +178,11 @@ jobs:
           name: Install dependencies
           command: |
             apk add --update --no-cache curl tar gzip ansible
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip awscliv2.zip &&./aws/install
+            # curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            # unzip awscliv2.zip && ./aws/install
+            pip3 install --upgrade pip
+            pip3 install awscli
+
       - run:
           name: Configure server
           command: |
