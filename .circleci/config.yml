@@ -164,7 +164,7 @@ jobs:
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
 
       - persist_to_workspace:
-          root: ./.circleci/ansible
+          root: ~/
           paths:
             - inventory.txt
       - run:
@@ -182,7 +182,7 @@ jobs:
       - add_ssh_keys:
           fingerprints: ["7f:1b:0d:37:02:a7:f4:43:49:fe:2e:d5:88:d2:6e:9e"]
       - attach_workspace:
-          at: ./.circleci/ansible
+          at: ~/
       - run:
           name: Install dependencies
           command: |
@@ -194,7 +194,7 @@ jobs:
           name: Configure server
           command: |
             cd .circleci/ansible
-            ansible-playbook -i inventory.txt configure-server.yml
+            ansible-playbook -i ~/inventory.txt configure-server.yml
             cat inventory.txt 
       - destroy-environment
   run-migrations:
