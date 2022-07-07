@@ -172,6 +172,7 @@ jobs:
           command: |
             pwd
             ls
+            cat inventory.txt
       - destroy-environment
   configure-infrastructure:
     docker:
