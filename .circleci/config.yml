@@ -160,6 +160,9 @@ jobs:
             aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
               --output text >> inventory
+            aws ec2 describe-instances \
+              --query 'Reservations[*].Instances[*].PublicIpAddress' \
+
       - persist_to_workspace:
           root: ~/
           paths:
@@ -186,6 +189,7 @@ jobs:
           command: |
             cd .circleci/ansible
             ansible-playbook -i inventory.txt configure-server.yml
+            cat inventory.txt
       - destroy-environment
   run-migrations:
     docker:
