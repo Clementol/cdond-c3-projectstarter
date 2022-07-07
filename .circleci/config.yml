@@ -164,7 +164,7 @@ jobs:
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
 
       - persist_to_workspace:
-          root: ./project/.circleci
+          root: ./.circleci
           paths:
             - ansible/
       - run:
