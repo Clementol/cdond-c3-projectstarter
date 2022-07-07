@@ -164,9 +164,9 @@ jobs:
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
 
       - persist_to_workspace:
-          root: ~/
+          root: .circleci
           paths:
-            - root/project/.circleci/ansible
+            - ansible
       - run:
           name: PWD
           command: |
