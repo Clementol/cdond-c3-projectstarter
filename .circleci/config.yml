@@ -216,8 +216,7 @@ jobs:
             #curl -H "Content-Type: text/plain" -H "token: 7933fe63-4687-4fa1-8426-aa25aa1730ec" --request PUT --data "1" https://api.memstash.io/values/migration_${CIRCLE_WORKFLOW_ID:0:7}
             # If you are using kvdb.io, generate the bucket ID "9GE4jRtKznmVKRfvdBABBe" in your local terminal first
               curl https://kvdb.io/69SwrZodT5ESzSDHaVHkFy/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
-            fi
-      - revert-migrations
+            fi          
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
   deploy-frontend:
@@ -262,7 +261,6 @@ jobs:
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
-      - revert-migrations
   deploy-backend:
     docker:
       - image: ansible/ansible
@@ -295,7 +293,8 @@ jobs:
             ansible-playbook -i inventory.txt deploy-backend.yml
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
-      - revert-migrations
+      - revert-migrations:
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
   smoke-test:
     docker:
       - image: alpine:3.15
@@ -338,7 +337,7 @@ jobs:
       - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       - revert-migrations
-
+          workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
 workflows:
   default:
     jobs:
