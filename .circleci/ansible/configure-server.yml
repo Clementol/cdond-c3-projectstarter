@@ -24,6 +24,8 @@
       apt:
         name: ["python"]
         update_cache: yes
+      shell: |
+        pip install paramiko
 
   # Get the environment variables from CircleCI and add to the EC2 instance
   environment:
