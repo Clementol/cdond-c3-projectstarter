@@ -12,7 +12,7 @@ commands:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     parameters:
       workflow_id:
-          type: string
+        type: string
     steps:
       - run:
           name: Destroy environments
@@ -26,7 +26,7 @@ commands:
     description: Revert the last migration if successfully run in the current workflow.
     parameters:
       workflow_id:
-          type: string
+        type: string
     steps:
       - run:
           name: Revert migrations
@@ -218,7 +218,7 @@ jobs:
               curl https://kvdb.io/69SwrZodT5ESzSDHaVHkFy/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
             fi
       - revert-migrations
-      - destroy-environment:  
+      - destroy-environment:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
   deploy-frontend:
     docker:
@@ -351,10 +351,10 @@ workflows:
       # - scan-frontend:
       #     requires: [build-frontend]
       - deploy-infrastructure
-          # requires: [test-frontend, test-backend, scan-frontend, scan-backend]
-          # filters:
-          #   branches:
-          #     only: [master]
+        # requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+        # filters:
+        #   branches:
+        #     only: [master]
       - configure-infrastructure:
           requires: [deploy-infrastructure]
       - run-migrations:
