@@ -19,9 +19,9 @@ commands:
           when: on_fail
           command: |
             aws cloudformation delete-stack \
-            --stack-name udapeople-backend-<<pipeline.workflow_id>>
+            --stack-name udapeople-backend-<<parameters.workflow_id>>
             aws cloudformation delete-stack \
-            --stack-name udapeople-frontend-<<pipeline.workflow_id>>
+            --stack-name udapeople-frontend-<<parameters.workflow_id>>
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
     parameters:
@@ -33,7 +33,7 @@ commands:
           when: on_fail
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            export SUCCESS=$(curl https://kvdb.io/69SwrZodT5ESzSDHaVHkFy/migration_<<pipeline.workflow_id>>)
+            export SUCCESS=$(curl https://kvdb.io/69SwrZodT5ESzSDHaVHkFy/migration_<<parameters.workflow_id>>)
             SUCCESS = 1
             if(( $SUCCESS==1 )); 
             then
@@ -164,7 +164,6 @@ jobs:
               --output text >> inventory.txt
             aws ec2 describe-instances \
               --query 'Reservations[*].Instances[*].PublicIpAddress' \
-
       - persist_to_workspace:
           root: ~/
           paths:
