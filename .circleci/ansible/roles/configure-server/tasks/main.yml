@@ -7,14 +7,19 @@
   become: yes
   apt:
     upgrade: yes
+
+- name: remove dependencies that are no longer required
+  become: true
+  apt:
+    autoremove: yes
+    
 - name: "Install nodejs and npm"
   become: yes
-  # shell:  |
-  #   curl --silent --location https://rpm.nodesource.com/setup_16.x | bash -
-  #   yum -y install nodejs
   apt:
     name: ["nodejs", "npm"]
     update_cache: yes
+    state: latest
+
 - name: "Install pm2"
   become: yes
   apt:
