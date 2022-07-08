@@ -20,11 +20,9 @@
       # Your code here
       become: yes
       apt:
-        name: ["python"]
+        name: ["python", "paramiko"]
         update_cache: yes
-      shell: |
-        pip install paramiko
-
+        
   # Get the environment variables from CircleCI and add to the EC2 instance
   environment:
     - TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"
