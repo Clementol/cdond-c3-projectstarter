@@ -167,12 +167,6 @@ jobs:
           root: ./
           paths:
             - inventory.txt
-      - run:
-          name: PWD
-          command: |
-            pwd
-            ls
-            cat inventory.txt
       - destroy-environment
   configure-infrastructure:
     docker:
