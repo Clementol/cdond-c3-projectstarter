@@ -183,7 +183,9 @@ jobs:
             apk add --update --no-cache curl tar gzip ansible
             pip3 install --upgrade pip
             pip3 install awscli
-
+      - run:
+          name: Install open ssh 
+          command: apk add --update openssh-client git
       - run:
           name: Configure server
           command: |
