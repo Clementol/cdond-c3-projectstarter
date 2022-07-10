@@ -184,7 +184,7 @@ jobs:
             pip3 install --upgrade pip
             pip3 install awscli
       - run:
-          name: Install open ssh 
+          name: Install open ssh
           command: apk add --update openssh-client git
       - run:
           name: Configure server
@@ -219,28 +219,15 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli
+      - cimg/node:13.8.0
     steps:
+      - run: sudo apt update -y
+      - run: sudo apt upgrade -y
+      - run:
+          name: install awscli
+          command: sudo apt install awscli -y
       - attach_workspace:
           at: ~/
-      # - run:
-      #     name: Install python
-      #     command: |
-      #       sudo apt-get install python3.7
-      - run:
-          name: Install Ansible
-          command: |
-            apk add --update --no-cache ansible
-      - run:
-          name: Install Nodejs and npm
-          command: |
-            apk add --update --no-cache nodejs npm
-      # - run:
-      #     name: Install Aws cli
-      #     command: |
-      #       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      #       unzip awscliv2.zip
-      #       sudo ./aws/install
       - run:
           name: Get backend url
           command: |
@@ -261,21 +248,25 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
   deploy-backend:
     docker:
-      - image: ansible/ansible
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - add_ssh_keys:
           fingerprints: ["7f:1b:0d:37:02:a7:f4:43:49:fe:2e:d5:88:d2:6e:9e"]
       - attach_workspace:
           at: ~/
+      - run: sudo apt update -y
+      - run: sudo apt upgrade -y
       - run:
-          name: Install dependencies(tar, gzip)
-          command: |
-            apk add --update --no-cache tar gzip
+          name: install awscli
+          command: sudo apt install awscli -y
       - run:
-          name: Install dependencies(Nodejs, npm)
+          name: install ansible
           command: |
-            apk add --update --no-cache nodejs npm
+            sudo apt install python3.8 -y
+            sudo apt install python3-pip -y
+            python3 -m pip install --upgrade pip
+            python3 -m pip install ansible --user
       - run:
           name: Deploy backend
           command: |
@@ -295,19 +286,14 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
   smoke-test:
     docker:
-      - image: alpine:3.15
+      - image: cimg/node:13.8.0
     steps:
       - checkout
+      - run: sudo apt update -y
+      - run: sudo apt upgrade -y
       - run:
-          name: Install dependencies
-          command: |
-            apk add --update --no-cache curl nodejs npm
-            pip3 install --upgrade pip
-            pip3 install awscli
-      - run:
-          name: Get backend url
-          command: |
-            # your code here
+          name: install awscli
+          command: sudo apt install awscli -y
       - run:
           name: Backend smoke test.
           command: |
@@ -327,7 +313,6 @@ jobs:
             echo ${URL} 
             if curl -s ${URL} | grep "Welcome"
             then
-                # Change this to 0 after the job fails
               return 1
             else
               return 1

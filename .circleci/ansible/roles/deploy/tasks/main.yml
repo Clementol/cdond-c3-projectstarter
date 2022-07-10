@@ -1,8 +1,9 @@
 ---
 - name: "extract the zipped artifact into the EC2 instance"
   become: yes
-  shell: |
-    tar xzvf artifact.tar.gz
+  unarchive:
+    src: artifact.tar.gz
+    dist: .
 - name: "Start app"
   become: yes
   shell:  |
