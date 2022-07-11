@@ -3,7 +3,7 @@
   become: yes
   unarchive:
     src: artifact.tar.gz
-    dist: .
+    dest: .
 - name: "Start app"
   become: yes
   shell:  |
