@@ -222,6 +222,7 @@ jobs:
     docker:
       - image: cimg/node:13.8.0
     steps:
+      - checkout
       - run: sudo apt update -y
       - run: sudo apt upgrade -y
       - run:
@@ -238,7 +239,7 @@ jobs:
             --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "API_URL = ${API_URL}"
-            echo API_URL="http://${BACKEND_IP}:3030" >> ~/project/frontend/.env
+            echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
             cat frontend/.env
       - run:
           name: Deploy frontend objects
