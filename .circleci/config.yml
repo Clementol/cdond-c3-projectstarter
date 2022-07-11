@@ -36,7 +36,6 @@ commands:
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
             export SUCCESS=$(curl https://kvdb.io/69SwrZodT5ESzSDHaVHkFy/migration_<<parameters.workflow_id>>)
-            SUCCESS = 1
             if(( $SUCCESS==1 )); 
             then
               cd ~/project/backend
@@ -332,6 +331,21 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
       - revert-migrations:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
+  cloudfront-update:
+    docker:
+      # Docker image here that supports AWS CLI
+    steps:
+      # Checkout code from git
+      - run:
+          name: Install dependencies
+          command: |
+            # your code here
+      - run:
+          name: Update cloudfront distribution
+          command: |
+            # your code here
+      # Here's where you will add some code to rollback on failure
+
 workflows:
   default:
     jobs:
