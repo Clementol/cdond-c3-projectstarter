@@ -336,6 +336,8 @@ jobs:
       - image: cimg/node:13.8.0
     steps:
       - checkout
+      - run: sudo apt update -y
+      - run: sudo apt upgrade -y
       - run:
           name: Install dependencies (AWS)
           command: |
