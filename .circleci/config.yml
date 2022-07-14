@@ -224,8 +224,8 @@ jobs:
       - image: cimg/node:13.8.0
     steps:
       - checkout
-      # - run: sudo apt update -y
-      # - run: sudo apt upgrade -y
+      - run: sudo apt update -y
+      - run: sudo apt upgrade -y
       - run:
           name: install awscli
           command: sudo apt install awscli -y
@@ -260,8 +260,8 @@ jobs:
           fingerprints: ["7f:1b:0d:37:02:a7:f4:43:49:fe:2e:d5:88:d2:6e:9e"]
       - attach_workspace:
           at: ~/
-      # - run: sudo apt update -y
-      # - run: sudo apt upgrade -y
+      - run: sudo apt update -y
+      - run: sudo apt upgrade -y
       - run:
           name: install awscli
           command: sudo apt install awscli -y
