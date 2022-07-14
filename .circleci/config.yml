@@ -221,14 +221,14 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
   deploy-frontend:
     docker:
-      - image: amazon/aws-cli
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       # - run: sudo apt update -y
       # - run: sudo apt upgrade -y
-      # - run:
-      #     name: install awscli
-      #     command: sudo apt install awscli -y
+      - run:
+          name: install awscli
+          command: sudo apt install awscli -y
       - attach_workspace:
           at: ~/
       - run:
@@ -253,7 +253,7 @@ jobs:
           workflow_id: ${CIRCLE_WORKFLOW_ID:0:7}
   deploy-backend:
     docker:
-      - image: amazon/aws-cli
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - add_ssh_keys:
@@ -262,9 +262,9 @@ jobs:
           at: ~/
       # - run: sudo apt update -y
       # - run: sudo apt upgrade -y
-      # - run:
-      #     name: install awscli
-      #     command: sudo apt install awscli -y
+      - run:
+          name: install awscli
+          command: sudo apt install awscli -y
       - run:
           name: install ansible
           command: |
