@@ -1,2 +1,3 @@
 [URL01] -> https://github.com/Clementol/cdond-c3-projectstarter
-[URL02] -> http://udapeople-f966bf7.s3-website-us-east-1.amazonaws.com
+[URL02] -> http://udapeople-00021e5.s3-website-us-east-1.amazonaws.com
+CloudFront domain name URL -> http://d3vi77hpuwnccz.cloudfront.net
